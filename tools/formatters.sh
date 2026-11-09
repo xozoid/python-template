@@ -22,7 +22,7 @@ run_formatter() {
 
 run_formatter "Ruff format" uv run ruff format .
 run_formatter "Prettier" npx prettier --write .
-run_formatter "Taplo" uvx taplo fmt .
+run_formatter "Taplo" uv run taplo fmt '*.toml'
 run_formatter "YAML" uv run prek run yamlfmt --all-files
 
 if [ -n "$failed_formatters" ]; then

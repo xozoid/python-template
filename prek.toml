@@ -1,10 +1,7 @@
 [[repos]]
 repo = "https://github.com/charliermarsh/ruff-pre-commit"
 rev = "v0.17.4"
-hooks = [
-  { id = "ruff-check" },
-  { id = "ruff-format" },
-]
+hooks = [{ id = "ruff-check" }, { id = "ruff-format" }]
 
 [[repos]]
 repo = "https://github.com/codespell-project/codespell"
@@ -14,10 +11,7 @@ hooks = [{ id = "codespell", args = ["--skip=node_modules"] }]
 [[repos]]
 repo = "https://github.com/ComPWA/taplo-pre-commit"
 rev = "v0.9.3"
-[[repos.hooks]]
-id = "taplo-format"
-entry = "uv run taplo fmt ."
-pass_filenames = false
+hooks = [{ id = "taplo-format" }]
 
 [[repos]]
 repo = "https://github.com/DetachHead/basedpyright-prek-mirror"

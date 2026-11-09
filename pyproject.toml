@@ -59,15 +59,16 @@ testpaths = ["tests"]
 
 [tool.ruff]
 line-length = 88
-preview = true
 target-version = "py312"
 
 [tool.ruff.lint]
 ignore = [
   "incorrect-blank-line-before-class",
   "missing-copyright-notice",
+  "missing-trailing-comma",            # ruff format adds trailing commas
   "undocumented-public-package",
 ]
+preview = true
 select = ["ALL"]
 
 [tool.ruff.lint.pydocstyle]

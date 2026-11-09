@@ -59,7 +59,7 @@ jobs:
       - run: npm ci
       - run: uv run ruff format --check .
       - run: npx prettier --check .
-      - run: uv run taplo fmt --check .
+      - run: uv run taplo fmt --check '*.toml'
       - run: uv run prek run yamlfmt --all-files
   spelling:
     runs-on: ubuntu-latest
