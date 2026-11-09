@@ -57,10 +57,9 @@ jobs:
           cache: npm
       - run: uv sync --locked --all-groups
       - run: npm ci
-      - run: uv run black . --check
-      - run: uv run isort . --check
+      - run: uv run ruff format --check .
       - run: npx prettier --check .
-      - run: uvx taplo fmt --check .
+      - run: uv run taplo fmt --check '*.toml'
       - run: uv run prek run yamlfmt --all-files
   spelling:
     runs-on: ubuntu-latest
@@ -72,13 +71,6 @@ jobs:
           enable-cache: true
       - run: uv sync --locked --all-groups
       - run: uv run codespell --skip=node_modules .
-  vale:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v7
-      - uses: errata-ai/vale-action@reviewdog
-        with:
-          files: README.md CONTRIBUTING.md
   coverage:
     runs-on: ubuntu-latest
     steps:
@@ -105,3 +97,6 @@ jobs:
           enable-cache: true
       - run: uv sync --locked --all-groups
       - run: uv build
+      - run: uv venv --no-project /tmp/wheel-test
+      - run: uv pip install --python /tmp/wheel-test/bin/python dist/*.whl
+      - run: /tmp/wheel-test/bin/python -c "import new_project"

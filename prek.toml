@@ -1,7 +1,7 @@
 [[repos]]
 repo = "https://github.com/charliermarsh/ruff-pre-commit"
 rev = "v0.17.4"
-hooks = [{ id = "ruff-check", args = ["--fix", "--exit-non-zero-on-fix"] }]
+hooks = [{ id = "ruff-check" }, { id = "ruff-format" }]
 
 [[repos]]
 repo = "https://github.com/codespell-project/codespell"
@@ -11,14 +11,11 @@ hooks = [{ id = "codespell", args = ["--skip=node_modules"] }]
 [[repos]]
 repo = "https://github.com/ComPWA/taplo-pre-commit"
 rev = "v0.9.3"
-[[repos.hooks]]
-id = "taplo-format"
-entry = "uvx taplo fmt ."
-pass_filenames = false
+hooks = [{ id = "taplo-format" }]
 
 [[repos]]
 repo = "https://github.com/DetachHead/basedpyright-prek-mirror"
-rev = "1.39.10"
+rev = "1.40.2"
 hooks = [{ id = "basedpyright", language = "system" }]
 
 [[repos]]
@@ -35,7 +32,10 @@ hooks = [
   { id = "check-builtin-literals" },
   { id = "check-case-conflict" },
   { id = "check-docstring-first" },
+  { id = "check-executables-have-shebangs" },
+  { id = "check-illegal-windows-names" },
   { id = "check-merge-conflict" },
+  { id = "check-shebang-scripts-are-executable" },
   { id = "check-toml" },
   { id = "check-yaml" },
   { id = "debug-statements" },
@@ -44,22 +44,8 @@ hooks = [
   { id = "mixed-line-ending", args = [
     "--fix=lf",
   ] },
-  { id = "pretty-format-json", args = [
-    "--autofix",
-    "--no-ensure-ascii",
-  ] },
   { id = "trailing-whitespace" },
 ]
-
-[[repos]]
-repo = "https://github.com/psf/black"
-rev = "26.10.1"
-hooks = [{ id = "black", types = ["python"] }]
-
-[[repos]]
-repo = "https://github.com/pycqa/isort"
-rev = "9.0.2"
-hooks = [{ id = "isort" }]
 
 [[repos]]
 repo = "https://github.com/tsvikas/sync-with-uv"
