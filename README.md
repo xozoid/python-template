@@ -1,1 +1,89 @@
 # new-project
+
+[![Coverage][coverage-badge]][ci] [![CI][ci-badge]][ci]
+[![PyPI publishing][publish-badge]][publish]
+
+The coverage badge includes branch coverage and updates from successful pushes to
+`main`. Its generated SVG is stored on the `badges` branch.
+
+## Overview
+
+This repository is a reusable template for Python packages. It includes Hatchling with
+`hatch-vcs` for builds and Git-derived versions, pytest and coverage for tests, Ruff for
+linting and formatting, `basedpyright` for type checking, and `prek` hooks for local
+checks. Prettier, `Taplo`, `yamlfmt`, Vale, and `codespell` cover formatting and writing
+checks. GitHub Actions runs these checks and publishes tagged releases to PyPI.
+
+## Create a project
+
+On GitHub, select **Use this template**, create a repository under your account or
+organization, and clone that repository.
+
+Replace `new-project` with your distribution name and `new_project` with its Python
+import package name. Rename the `new_project/` directory, update the wheel package in
+`[tool.hatch.build.targets.wheel]`, and adjust coverage and `basedpyright` paths in
+`pyproject.toml`. Update the project metadata there, including description, keywords,
+classifiers, Python support, and license as needed. Also change the npm package name in
+`package.json` and the PyPI project URL in `.github/workflows/publish.yml`.
+
+For example, for distribution `sample-tool` and import package `sample_tool`, change the
+project name to `sample-tool`, rename the package directory to `sample_tool/`, and set
+the wheel package to `sample_tool`. Update references in tests and workflow commands,
+including the build import smoke test in `.github/workflows/ci.yml`. Review the Python
+version matrix and tool versions in CI, Dependabot, `pyproject.toml`, `uv.lock`,
+`prek.toml`, and `package-lock.json` for your project's needs. Configure PyPI trusted
+publishing for the repository's `pypi` GitHub environment and the publishing workflow.
+Update the repository owner and name in the badge links at the bottom of this file.
+
+## Development setup
+
+Install Git, Python 3.12 or later, [uv](https://docs.astral.sh/uv/), Node.js 24 or later
+with npm, and Vale. From the repository root, run:
+
+```sh
+tools/env.sh
+```
+
+The script synchronizes the locked Python dependencies, installs `prek` Git hooks,
+installs Vale if it's missing (using a supported system package manager), downloads Vale
+styles, installs npm dependencies with `npm ci`, and creates `.env` and `.env.leave` if
+absent. They're for [`autoenv`](https://github.com/hyperupcall/autoenv): `.env`
+activates the project virtual environment when you enter the repository, and
+`.env.leave` deactivates it when you leave. Existing files stay in place.
+`tools/env.sh --upgrade` first upgrades the Python lockfile, then syncs and performs the
+same setup.
+
+Common commands:
+
+```sh
+uv run pytest
+uv run coverage run -m pytest
+uv run coverage report
+tools/linters.sh
+tools/formatters.sh
+uv run prek run --all-files
+```
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for dependency updates, checks, and release
+steps.
+
+## Releases
+
+`hatch-vcs` derives the package version from Git tags; without a matching tag, the
+configured fallback version is `0.1.0`. Publish a GitHub Release whose tag is a valid
+version tag, optionally prefixed with `v` (for example, `v1.2.3`). Publishing the
+release starts the publish workflow, which runs the CI workflow, builds the package, and
+checks that the tag version matches the built package version. After validation, GitHub
+Actions publishes to PyPI using trusted publishing. The workflow expects a PyPI project
+matching the configured name and a GitHub environment named `pypi`.
+
+[coverage-badge]:
+  https://raw.githubusercontent.com/xozoid/python-template/badges/coverage.svg
+[ci]:
+  https://github.com/xozoid/python-template/actions/workflows/ci.yml?query=branch%3Amain
+[ci-badge]:
+  https://github.com/xozoid/python-template/actions/workflows/ci.yml/badge.svg?branch=main
+[publish]:
+  https://github.com/xozoid/python-template/actions/workflows/publish.yml?query=branch%3Amain
+[publish-badge]:
+  https://github.com/xozoid/python-template/actions/workflows/publish.yml/badge.svg?branch=main
