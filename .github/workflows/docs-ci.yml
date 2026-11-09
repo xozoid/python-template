@@ -1,0 +1,32 @@
+name: Docs CI
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "**/*.md"
+      - "**/*.rst"
+      - "**/*.adoc"
+      - "**/*.txt"
+permissions:
+  contents: read
+jobs:
+  vale:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/cache@v4
+        id: vale-styles
+        with:
+          path: .vale/styles
+          key: vale-${{ runner.os }}-${{ hashFiles('.vale.ini') }}
+      - uses: vale-cli/vale-action@v3
+        id: vale
+        continue-on-error: true
+        with:
+          files: all
+          sync: ${{ steps.vale-styles.outputs.cache-hit != 'true' }}
+      - uses: vale-cli/vale-action@v3
+        if: steps.vale.outcome == 'failure'
+        with:
+          files: all
+          sync: true

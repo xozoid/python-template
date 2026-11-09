@@ -71,13 +71,6 @@ jobs:
           enable-cache: true
       - run: uv sync --locked --all-groups
       - run: uv run codespell --skip=node_modules .
-  vale:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v7
-      - uses: errata-ai/vale-action@reviewdog
-        with:
-          files: README.md CONTRIBUTING.md
   coverage:
     runs-on: ubuntu-latest
     steps:
