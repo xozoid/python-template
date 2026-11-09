@@ -33,6 +33,7 @@ dev = [
   "prek>=0.5.0",
   "pytest>=8.3",
   "ruff>=0.16.5",
+  "taplo==0.9.3",
 ]
 
 [tool.basedpyright]

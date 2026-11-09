@@ -13,7 +13,7 @@ repo = "https://github.com/ComPWA/taplo-pre-commit"
 rev = "v0.9.3"
 [[repos.hooks]]
 id = "taplo-format"
-entry = "uvx taplo fmt ."
+entry = "uv run taplo fmt ."
 pass_filenames = false
 
 [[repos]]
