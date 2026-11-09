@@ -46,6 +46,16 @@ commits. The `sync-with-uv` hook keeps hook revisions aligned with Python packag
 `uv.lock`; run it after changing hook revisions or relevant dependencies, then review
 and commit the lockfile changes.
 
+## Agent instructions and skills
+
+Persistent repository guidance lives in the root `AGENTS.md`. Focused, task-specific
+Agent Skills live under `.agents/skills/`; each skill has a `SKILL.md` with metadata
+that helps compatible agents discover when to use it. `AGENTS.md` describes project-wide
+expectations, while skills provide checklists for particular tasks. Contributors can
+extend or maintain skills by adding a narrowly scoped directory and a valid `SKILL.md`,
+then updating its instructions when project workflows change. See the
+[Agent Skills specification](https://agentskills.io/specification) for the format.
+
 ## Pull requests and CI
 
 Open a pull request against `main`. CI keeps checks in separate jobs: pytest on Python
