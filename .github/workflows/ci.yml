@@ -57,8 +57,7 @@ jobs:
           cache: npm
       - run: uv sync --locked --all-groups
       - run: npm ci
-      - run: uv run black . --check
-      - run: uv run isort . --check
+      - run: uv run ruff format --check .
       - run: npx prettier --check .
       - run: uv run taplo fmt --check .
       - run: uv run prek run yamlfmt --all-files

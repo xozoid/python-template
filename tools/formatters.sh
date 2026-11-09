@@ -20,8 +20,7 @@ run_formatter() {
   fi
 }
 
-run_formatter "isort" uv run isort .
-run_formatter "Black" uv run black .
+run_formatter "Ruff format" uv run ruff format .
 run_formatter "Prettier" npx prettier --write .
 run_formatter "Taplo" uvx taplo fmt .
 run_formatter "YAML" uv run prek run yamlfmt --all-files

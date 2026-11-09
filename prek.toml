@@ -1,7 +1,10 @@
 [[repos]]
 repo = "https://github.com/charliermarsh/ruff-pre-commit"
 rev = "v0.17.4"
-hooks = [{ id = "ruff-check", args = ["--fix", "--exit-non-zero-on-fix"] }]
+hooks = [
+  { id = "ruff-check" },
+  { id = "ruff-format" },
+]
 
 [[repos]]
 repo = "https://github.com/codespell-project/codespell"
@@ -50,16 +53,6 @@ hooks = [
   ] },
   { id = "trailing-whitespace" },
 ]
-
-[[repos]]
-repo = "https://github.com/psf/black"
-rev = "26.10.1"
-hooks = [{ id = "black", types = ["python"] }]
-
-[[repos]]
-repo = "https://github.com/pycqa/isort"
-rev = "9.0.2"
-hooks = [{ id = "isort" }]
 
 [[repos]]
 repo = "https://github.com/tsvikas/sync-with-uv"
