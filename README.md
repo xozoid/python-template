@@ -1,10 +1,6 @@
 # new-project
 
-[![Coverage][coverage-badge]][ci] [![CI][ci-badge]][ci]
-[![PyPI publishing][publish-badge]][publish]
-
-The coverage badge includes branch coverage and updates from successful pushes to
-`main`. Its generated SVG is stored on the `badges` branch.
+[![CI][ci-badge]][ci] [![PyPI publishing][publish-badge]][publish]
 
 ## Overview
 
@@ -33,7 +29,8 @@ including the build import smoke test in `.github/workflows/ci.yml`. Review the 
 version matrix and tool versions in CI, Dependabot, `pyproject.toml`, `uv.lock`,
 `prek.toml`, and `package-lock.json` for your project's needs. Configure PyPI trusted
 publishing for the repository's `pypi` GitHub environment and the publishing workflow.
-Update the repository owner and name in the badge links at the bottom of this file.
+After creating the new repository, replace `xozoid/python-template` in the badge
+definitions at the bottom with its owner and repository name.
 
 ## Development setup
 
@@ -69,16 +66,15 @@ steps.
 
 ## Releases
 
-`hatch-vcs` derives the package version from Git tags; without a matching tag, the
-configured fallback version is `0.1.0`. Publish a GitHub Release whose tag is a valid
+`hatch-vcs` uses setuptools-scm to derive versions from Git tags and history, including
+development versions when a commit isn't exactly tagged. The configured `0.1.0` fallback
+applies only if version detection fails. Publish a GitHub Release whose tag is a valid
 version tag, optionally prefixed with `v` (for example, `v1.2.3`). Publishing the
 release starts the publish workflow, which runs the CI workflow, builds the package, and
 checks that the tag version matches the built package version. After validation, GitHub
 Actions publishes to PyPI using trusted publishing. The workflow expects a PyPI project
 matching the configured name and a GitHub environment named `pypi`.
 
-[coverage-badge]:
-  https://raw.githubusercontent.com/xozoid/python-template/badges/coverage.svg
 [ci]:
   https://github.com/xozoid/python-template/actions/workflows/ci.yml?query=branch%3Amain
 [ci-badge]:

@@ -41,10 +41,6 @@ hooks = [
   { id = "mixed-line-ending", args = [
     "--fix=lf",
   ] },
-  { id = "pretty-format-json", args = [
-    "--autofix",
-    "--no-ensure-ascii",
-  ] },
   { id = "trailing-whitespace" },
 ]
 

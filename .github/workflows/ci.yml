@@ -80,8 +80,6 @@ jobs:
           files: README.md CONTRIBUTING.md
   coverage:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
       - uses: actions/checkout@v7
       - uses: astral-sh/setup-uv@v7
@@ -91,27 +89,6 @@ jobs:
       - run: uv sync --locked --all-groups
       - run: uv run coverage run -m pytest
       - run: uv run coverage report
-      - name: Generate and update coverage badge
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        uses: tj-actions/coverage-badge-py@v2
-      - name: Update badges branch
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        run: |
-          cp coverage.svg /tmp/coverage.svg
-          if git ls-remote --exit-code --heads origin badges >/dev/null; then
-            git fetch origin badges
-            git switch --force-create badges origin/badges
-          else
-            git switch --orphan badges
-          fi
-          cp /tmp/coverage.svg coverage.svg
-          if [ -n "$(git status --porcelain -- coverage.svg)" ]; then
-            git config user.name 'github-actions[bot]'
-            git config user.email 'github-actions[bot]@users.noreply.github.com'
-            git add coverage.svg
-            git commit -m 'Update coverage badge'
-            git push
-          fi
       - uses: actions/upload-artifact@v7
         if: always()
         with:
