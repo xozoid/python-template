@@ -58,6 +58,9 @@ source = ["new_project"]
 profile = "black"
 py_version = 312
 
+[tool.sync-with-uv.repo-to-package]
+"https://github.com/DetachHead/basedpyright-prek-mirror" = "basedpyright"
+
 [tool.pytest.ini_options]
 addopts = ["--import-mode=importlib"]
 testpaths = ["tests"]

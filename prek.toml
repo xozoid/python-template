@@ -18,7 +18,7 @@ pass_filenames = false
 
 [[repos]]
 repo = "https://github.com/DetachHead/basedpyright-prek-mirror"
-rev = "1.39.10"
+rev = "1.40.2"
 hooks = [{ id = "basedpyright", language = "system" }]
 
 [[repos]]
