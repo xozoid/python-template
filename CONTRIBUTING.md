@@ -11,20 +11,25 @@ dependencies before setup.
 
 Add Python development dependencies to the appropriate group in `pyproject.toml`
 (`lint`, `spell`, `test`, `coverage`, `types`, `format`, `prek`, or the aggregate `dev`
-group), then update and commit `uv.lock`:
+group). Pin each development dependency to the exact version resolved in `uv.lock`, then
+update and commit `uv.lock`:
 
 ```sh
 uv add --dev package-name
 uv lock
+uv lock --check
 uv sync --locked --all-groups
+uv run --no-sync prek run --all-files sync-with-uv
 ```
 
 Use `uv add --group <group> package-name` for another dependency group, or edit the
-project metadata and run `uv lock` when needed. The `dev` group includes all groups for
-the complete local environment. The `format` group includes `prek` for its `yamlfmt`
-hook; CI selects only the groups each independent job needs. Update npm development
-dependencies with `npm install --save-dev package-name` and commit both `package.json`
-and `package-lock.json`. Dependabot also checks uv, npm, and GitHub Actions dependencies
+project metadata and run `uv lock` when needed. Set the exact pin to the version
+selected by the lockfile. Leave runtime dependencies in `[project.dependencies]`
+unpinned. The `dev` group includes all groups for the complete local environment. The
+`format` group includes `prek` for its `yamlfmt` hook; CI selects only the groups each
+independent job needs. Update npm development dependencies with
+`npm install --save-dev package-name` and commit both `package.json` and
+`package-lock.json`. Dependabot also checks uv, npm, and GitHub Actions dependencies
 weekly.
 
 ## Tests and checks
@@ -49,16 +54,16 @@ commits. The `sync-with-uv` hook keeps hook revisions aligned with Python packag
 `uv.lock`; run it after changing hook revisions or relevant dependencies, then review
 and commit the lockfile changes.
 
-CI runs `sync-with-uv` on every pull request, including Dependabot pull requests. The
-check installs the `prek` dependency group from `uv.lock`, runs the hook, and fails if
-it modifies tracked files. Dependabot doesn't provide a native arbitrary post-update
-script in `dependabot.yml`; its supported configuration covers dependency update
-behavior
-([options reference](https://docs.github.com/en/code-security/reference/supply-chain-security/dependabot-options-reference)).
-When a Dependabot update changes a synchronized package version, run
-`uv run prek run --all-files sync-with-uv` locally and commit the resulting `prek.toml`
-change with the lockfile update. CI validates every pull request, including Dependabot
-pull requests.
+Dependabot's weekly uv updates cover exact-pinned development dependencies. Its
+`increase` versioning strategy advances the manifest constraint, while the uv updater
+resolves and records the update in `uv.lock`. CI runs `sync-with-uv` on every pull
+request, including Dependabot pull requests. It installs the `prek` group, runs the
+hook, and fails if the hook would modify tracked files. If an update changes a tool
+revision represented in `prek.toml`, run `uv run prek run --all-files sync-with-uv` and
+commit the generated change with the lockfile update. Dependabot doesn't provide an
+arbitrary post-update script in `dependabot.yml`; its
+[options reference](https://docs.github.com/en/code-security/reference/supply-chain-security/dependabot-options-reference)
+documents the supported update behavior.
 
 ## Agent instructions and skills
 
@@ -73,10 +78,11 @@ then updating its instructions when project workflows change. See the
 ## Pull requests and CI
 
 Open a pull request against `main`. CI keeps checks in separate jobs: pytest on Python
-3.12 through 3.15, Ruff, `basedpyright`, formatting (Ruff, Prettier, `Taplo`,
-`yamlfmt`), spelling, Vale, coverage, and build/import validation. Run the relevant
-local commands and ensure CI passes. Update tests and documentation when behavior or
-contributor instructions change.
+3.12 through 3.15, pytest against the lowest compatible runtime dependencies on Python
+3.12, Ruff, `basedpyright`, formatting (Ruff, Prettier, `Taplo`, `yamlfmt`), spelling,
+Vale, coverage, and build/import validation. Run the relevant local commands and ensure
+CI passes. Update tests and documentation when behavior or contributor instructions
+change.
 
 ## Releases
 

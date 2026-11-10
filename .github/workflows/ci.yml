@@ -23,6 +23,30 @@ jobs:
           enable-cache: true
       - run: uv sync --locked --no-default-groups --group test
       - run: uv run --no-sync pytest
+  minimum-runtime-dependencies:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v7
+        with:
+          python-version: "3.12"
+          enable-cache: true
+      - name: Resolve minimum runtime dependencies
+        run: |
+          uv venv --python 3.12 .venv-minimum
+          uv pip install --python .venv-minimum/bin/python --resolution lowest-direct .
+          uv pip freeze --python .venv-minimum/bin/python > /tmp/minimum-constraints.txt
+      - name: Install locked pytest
+        run: |
+          PYTEST_VERSION=$(python -c "
+          import tomllib
+          with open('uv.lock', 'rb') as f:
+              lock = tomllib.load(f)
+          print(next(p['version'] for p in lock['package'] if p['name'] == 'pytest'))
+          ")
+          uv pip install --python .venv-minimum/bin/python --constraint /tmp/minimum-constraints.txt "pytest==$PYTEST_VERSION"
+      - name: Run tests
+        run: .venv-minimum/bin/python -m pytest
   ruff:
     runs-on: ubuntu-latest
     steps:
