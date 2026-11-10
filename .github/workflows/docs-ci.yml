@@ -13,9 +13,12 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - name: Install Vale
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
-          curl -fsSL https://github.com/vale-cli/vale/releases/latest/download/vale_Linux_64-bit.tar.gz \
-            | sudo tar -xz -C /usr/local/bin vale
+          url=$(gh api repos/vale-cli/vale/releases/latest \
+            --jq '.assets[] | select(.name | endswith("_Linux_64-bit.tar.gz")) | .browser_download_url')
+          curl -fsSL "$url" | sudo tar -xz -C /usr/local/bin vale
           vale --version
       - uses: actions/cache@v4
         id: vale-styles
