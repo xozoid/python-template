@@ -193,6 +193,9 @@ format = [
 lint = [
     { name = "ruff" },
 ]
+prek = [
+    { name = "prek" },
+]
 spell = [
     { name = "codespell" },
 ]
@@ -226,6 +229,7 @@ format = [
     { name = "taplo", specifier = "==0.9.3" },
 ]
 lint = [{ name = "ruff", specifier = ">=0.16.5" }]
+prek = [{ name = "prek", specifier = ">=0.5.0" }]
 spell = [{ name = "codespell", specifier = ">=2.4.3" }]
 test = [{ name = "pytest", specifier = ">=8.3" }]
 types = [{ name = "basedpyright", specifier = ">=1.39.10" }]

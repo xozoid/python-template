@@ -10,8 +10,8 @@ through a supported package manager. Use `tools/env.sh --upgrade` to upgrade Pyt
 dependencies before setup.
 
 Add Python development dependencies to the appropriate group in `pyproject.toml`
-(`lint`, `spell`, `test`, `coverage`, `types`, `format`, or the aggregate `dev` group),
-then update and commit `uv.lock`:
+(`lint`, `spell`, `test`, `coverage`, `types`, `format`, `prek`, or the aggregate `dev`
+group), then update and commit `uv.lock`:
 
 ```sh
 uv add --dev package-name
@@ -21,10 +21,11 @@ uv sync --locked --all-groups
 
 Use `uv add --group <group> package-name` for another dependency group, or edit the
 project metadata and run `uv lock` when needed. The `dev` group includes all groups for
-the complete local environment; CI selects only the groups each independent job needs.
-Update npm development dependencies with `npm install --save-dev package-name` and
-commit both `package.json` and `package-lock.json`. Dependabot also checks uv, npm, and
-GitHub Actions dependencies weekly.
+the complete local environment. The `format` group includes `prek` for its `yamlfmt`
+hook; CI selects only the groups each independent job needs. Update npm development
+dependencies with `npm install --save-dev package-name` and commit both `package.json`
+and `package-lock.json`. Dependabot also checks uv, npm, and GitHub Actions dependencies
+weekly.
 
 ## Tests and checks
 
@@ -47,6 +48,17 @@ file checks, Vale, and Prettier. `tools/env.sh` installs the Git hooks so `prek`
 commits. The `sync-with-uv` hook keeps hook revisions aligned with Python packages in
 `uv.lock`; run it after changing hook revisions or relevant dependencies, then review
 and commit the lockfile changes.
+
+CI runs `sync-with-uv` on every pull request, including Dependabot pull requests. The
+check installs the `prek` dependency group from `uv.lock`, runs the hook, and fails if
+it modifies tracked files. Dependabot doesn't provide a native arbitrary post-update
+script in `dependabot.yml`; its supported configuration covers dependency update
+behavior
+([options reference](https://docs.github.com/en/code-security/reference/supply-chain-security/dependabot-options-reference)).
+When a Dependabot update changes a synchronized package version, run
+`uv run prek run --all-files sync-with-uv` locally and commit the resulting `prek.toml`
+change with the lockfile update. CI validates every pull request, including Dependabot
+pull requests.
 
 ## Agent instructions and skills
 

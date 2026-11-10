@@ -61,6 +61,14 @@ jobs:
       - run: npm exec --no -- prettier --check .
       - run: uv run --no-sync taplo fmt --check '*.toml'
       - run: uv run --no-sync prek run yamlfmt --all-files
+  sync-with-uv:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v7
+      - run: uv sync --locked --no-default-groups --only-group prek --no-install-project
+      - run: uv run --no-sync prek run --all-files sync-with-uv
+      - run: git diff --exit-code
   spelling:
     runs-on: ubuntu-latest
     steps:
