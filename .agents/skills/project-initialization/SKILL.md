@@ -39,12 +39,18 @@ history intact and do not create a commit unless the user requests one.
 - [ ] If publishing to PyPI, configure trusted publishing for the repository and
       publishing workflow. Review the `pypi` GitHub environment and workflow URL/name.
       Skip this step for projects that do not publish to PyPI.
-- [ ] Verify the renamed package builds and imports from the built wheel, and update or
-      run tests and checks using the commands documented in `CONTRIBUTING.md`.
+- [ ] Verify the renamed package builds and imports from the built wheel.
+- [ ] Run `tools/formatters.sh` and review its changes. Then run `tools/linters.sh`,
+      `uv run pytest`, `uv run coverage run -m pytest`, and `uv run coverage report`,
+      following the commands in `CONTRIBUTING.md`. Fix any failures and rerun the
+      affected checks until all pass.
 
 After adoption is complete, replace the placeholder `Template-Revision` in `HISTORY.md`
 with the full upstream SHA resolved at the start. Do not edit the update skill's
 instructions or alter the target repository's existing history.
+
+After the adoption and all checks above succeed, remove this project-initialization
+skill from the adopted project. Do not remove it before then.
 
 Do not rename files, change metadata, or configure publishing without a user request.
 Resolve any project-specific choices from the request or ask only for details that
