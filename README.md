@@ -1,6 +1,6 @@
 # new-project
 
-[![CI][ci-badge]][ci] [![PyPI publishing][publish-badge]][publish]
+[![CI][ci-badge]][ci] [![PyPI publishing][pypi-badge]][pypi-url]
 
 ## Overview
 
@@ -79,7 +79,5 @@ matching the configured name and a GitHub environment named `pypi`.
   https://github.com/xozoid/python-template/actions/workflows/ci.yml?query=branch%3Amain
 [ci-badge]:
   https://github.com/xozoid/python-template/actions/workflows/ci.yml/badge.svg?branch=main
-[publish]:
-  https://github.com/xozoid/python-template/actions/workflows/publish.yml?query=branch%3Amain
-[publish-badge]:
-  https://github.com/xozoid/python-template/actions/workflows/publish.yml/badge.svg?branch=main
+[pypi-badge]: https://img.shields.io/pypi/v/new-project.svg
+[pypi-url]: https://pypi.org/project/new-project/
