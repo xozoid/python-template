@@ -65,6 +65,6 @@ files = "\\.(md|rst|txt|adoc)$"
 [[repos.hooks]]
 id = "prettier"
 name = "prettier"
-entry = "npx prettier --write"
+entry = "npm exec --no -- prettier --write"
 language = "system"
 files = "\\.(md|json|yaml|yml)$"

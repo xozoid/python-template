@@ -171,6 +171,10 @@ name = "new-project"
 source = { editable = "." }
 
 [package.dev-dependencies]
+coverage = [
+    { name = "coverage" },
+    { name = "pytest" },
+]
 dev = [
     { name = "basedpyright" },
     { name = "build" },
@@ -181,10 +185,31 @@ dev = [
     { name = "ruff" },
     { name = "taplo" },
 ]
+format = [
+    { name = "prek" },
+    { name = "ruff" },
+    { name = "taplo" },
+]
+lint = [
+    { name = "ruff" },
+]
+spell = [
+    { name = "codespell" },
+]
+test = [
+    { name = "pytest" },
+]
+types = [
+    { name = "basedpyright" },
+]
 
 [package.metadata]
 
 [package.metadata.requires-dev]
+coverage = [
+    { name = "coverage", extras = ["toml"], specifier = ">=7.17.2" },
+    { name = "pytest", specifier = ">=8.3" },
+]
 dev = [
     { name = "basedpyright", specifier = ">=1.39.10" },
     { name = "build", specifier = ">=1.2" },
@@ -195,6 +220,15 @@ dev = [
     { name = "ruff", specifier = ">=0.16.5" },
     { name = "taplo", specifier = "==0.9.3" },
 ]
+format = [
+    { name = "prek", specifier = ">=0.5.0" },
+    { name = "ruff", specifier = ">=0.16.5" },
+    { name = "taplo", specifier = "==0.9.3" },
+]
+lint = [{ name = "ruff", specifier = ">=0.16.5" }]
+spell = [{ name = "codespell", specifier = ">=2.4.3" }]
+test = [{ name = "pytest", specifier = ">=8.3" }]
+types = [{ name = "basedpyright", specifier = ">=1.39.10" }]
 
 [[package]]
 name = "nodejs-wheel-binaries"

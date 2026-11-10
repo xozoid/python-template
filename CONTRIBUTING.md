@@ -9,8 +9,9 @@ dependencies, install `prek` Git hooks, fetch Vale styles, run `npm ci`, and cre
 through a supported package manager. Use `tools/env.sh --upgrade` to upgrade Python
 dependencies before setup.
 
-Add Python development dependencies to the appropriate group in `pyproject.toml`, then
-update and commit `uv.lock`:
+Add Python development dependencies to the appropriate group in `pyproject.toml`
+(`lint`, `spell`, `test`, `coverage`, `types`, `format`, or the aggregate `dev` group),
+then update and commit `uv.lock`:
 
 ```sh
 uv add --dev package-name
@@ -19,10 +20,11 @@ uv sync --locked --all-groups
 ```
 
 Use `uv add --group <group> package-name` for another dependency group, or edit the
-project metadata and run `uv lock` when needed. Update npm development dependencies with
-`npm install --save-dev package-name` and commit both `package.json` and
-`package-lock.json`. Dependabot also checks uv, npm, and GitHub Actions dependencies
-weekly.
+project metadata and run `uv lock` when needed. The `dev` group includes all groups for
+the complete local environment; CI selects only the groups each independent job needs.
+Update npm development dependencies with `npm install --save-dev package-name` and
+commit both `package.json` and `package-lock.json`. Dependabot also checks uv, npm, and
+GitHub Actions dependencies weekly.
 
 ## Tests and checks
 
