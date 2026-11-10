@@ -32,6 +32,14 @@ publishing for the repository's `pypi` GitHub environment and the publishing wor
 After creating the new repository, replace `xozoid/python-template` in the badge
 definitions at the bottom with its owner and repository name.
 
+The project initialization skill records the full upstream template commit used during
+adoption in `.agents/skills/update-from-template/SKILL.md`. When the project is adopted,
+replace that skill's revision placeholder with the resolved upstream SHA. Use the
+`update-from-template` skill for later template updates; it preserves project-specific
+changes and advances the recorded revision only after the migration and checks succeed.
+The skill's `Template-Source` and `Template-Revision` fields identify the template and
+upstream commit; update the revision field after a successful migration.
+
 ## Development setup
 
 Install Git, Python 3.12 or later, [uv](https://docs.astral.sh/uv/), Node.js 24 or later

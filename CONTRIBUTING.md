@@ -75,6 +75,13 @@ extend or maintain skills by adding a narrowly scoped directory and a valid `SKI
 then updating its instructions when project workflows change. See the
 [Agent Skills specification](https://agentskills.io/specification) for the format.
 
+Projects created from this template should set the `Template-Revision` field in
+`.agents/skills/update-from-template/SKILL.md` to the full upstream commit SHA used at
+adoption. For later updates, compare and migrate template changes while preserving local
+customizations, run the relevant checks above, and advance that field only after the
+migration succeeds. This skill field is the revision record for both adoption and
+subsequent updates.
+
 ## Pull requests and CI
 
 Open a pull request against `main`. CI keeps checks in separate jobs: pytest on Python
