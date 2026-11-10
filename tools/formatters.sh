@@ -21,7 +21,7 @@ run_formatter() {
 }
 
 run_formatter "Ruff format" uv run ruff format .
-run_formatter "Prettier" npx prettier --write .
+run_formatter "Prettier" npm exec --no -- prettier --write .
 run_formatter "Taplo" uv run taplo fmt '*.toml'
 run_formatter "YAML" uv run prek run yamlfmt --all-files
 

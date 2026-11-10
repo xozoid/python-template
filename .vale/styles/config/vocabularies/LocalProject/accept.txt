@@ -1,4 +1,5 @@
-new-project
 Coverage.py
+Dependabot('s)?
+new-project
 pytest
 uv

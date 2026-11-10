@@ -13,14 +13,14 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - name: Install Vale
-        run: sudo snap install vale
-      - uses: actions/cache@v4
-        id: vale-styles
-        with:
-          path: .vale/styles
-          key: vale-${{ runner.os }}-${{ hashFiles('.vale.ini') }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          url=$(gh api repos/vale-cli/vale/releases/latest \
+            --jq '.assets[] | select(.name | endswith("_Linux_64-bit.tar.gz")) | .browser_download_url')
+          curl -fsSL "$url" | sudo tar -xz -C /usr/local/bin vale
+          vale --version
       - name: Sync Vale styles
-        if: steps.vale-styles.outputs.cache-hit != 'true'
         run: |
           attempt=0
           until vale sync; do

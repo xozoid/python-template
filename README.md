@@ -1,6 +1,6 @@
 # new-project
 
-[![CI][ci-badge]][ci] [![PyPI publishing][publish-badge]][publish]
+[![CI][ci-badge]][ci] [![PyPI publishing][pypi-badge]][pypi-url]
 
 ## Overview
 
@@ -31,6 +31,12 @@ version matrix and tool versions in CI, Dependabot, `pyproject.toml`, `uv.lock`,
 publishing for the repository's `pypi` GitHub environment and the publishing workflow.
 After creating the new repository, replace `xozoid/python-template` in the badge
 definitions at the bottom with its owner and repository name.
+
+The project initialization skill records the full upstream template commit used during
+adoption in `.agents/skills/update-from-template/HISTORY.md`. Use the
+`update-from-template` skill for later template updates; it preserves project-specific
+changes and updates `HISTORY.md` only after the migration and checks succeed. That file
+tracks the template source, applied revision, and intentionally skipped changes.
 
 ## Development setup
 
@@ -79,7 +85,5 @@ matching the configured name and a GitHub environment named `pypi`.
   https://github.com/xozoid/python-template/actions/workflows/ci.yml?query=branch%3Amain
 [ci-badge]:
   https://github.com/xozoid/python-template/actions/workflows/ci.yml/badge.svg?branch=main
-[publish]:
-  https://github.com/xozoid/python-template/actions/workflows/publish.yml?query=branch%3Amain
-[publish-badge]:
-  https://github.com/xozoid/python-template/actions/workflows/publish.yml/badge.svg?branch=main
+[pypi-badge]: https://img.shields.io/pypi/v/new-project.svg
+[pypi-url]: https://pypi.org/project/new-project/
