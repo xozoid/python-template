@@ -45,6 +45,10 @@ jobs:
           print(next(p['version'] for p in lock['package'] if p['name'] == 'pytest'))
           ")
           uv pip install --python .venv-minimum/bin/python --constraint /tmp/minimum-constraints.txt "pytest==$PYTEST_VERSION"
+      - name: Verify minimum dependencies were preserved
+        run: |
+          uv pip freeze --python .venv-minimum/bin/python > /tmp/after.txt
+          grep -Fxf /tmp/minimum-constraints.txt /tmp/after.txt | diff - /tmp/minimum-constraints.txt
       - name: Run tests
         run: .venv-minimum/bin/python -m pytest
   ruff:

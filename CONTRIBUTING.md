@@ -76,11 +76,11 @@ then updating its instructions when project workflows change. See the
 [Agent Skills specification](https://agentskills.io/specification) for the format.
 
 Projects created from this template should set the `Template-Revision` field in
-`.agents/skills/update-from-template/SKILL.md` to the full upstream commit SHA used at
+`.agents/skills/update-from-template/HISTORY.md` to the full upstream commit SHA used at
 adoption. For later updates, compare and migrate template changes while preserving local
-customizations, run the relevant checks above, and advance that field only after the
-migration succeeds. This skill field is the revision record for both adoption and
-subsequent updates.
+customizations, run the relevant checks above, and update that history file only after
+the migration succeeds. It also keeps the persistent record of intentionally skipped
+changes; the skill instructions remain unchanged.
 
 ## Pull requests and CI
 
