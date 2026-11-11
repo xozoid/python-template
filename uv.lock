@@ -204,6 +204,7 @@ test = [
 ]
 types = [
     { name = "basedpyright" },
+    { name = "pytest" },
 ]
 
 [package.metadata]
@@ -232,7 +233,10 @@ lint = [{ name = "ruff", specifier = "==0.17.4" }]
 prek = [{ name = "prek", specifier = "==0.5.10" }]
 spell = [{ name = "codespell", specifier = "==2.4.3" }]
 test = [{ name = "pytest", specifier = "==9.2.0" }]
-types = [{ name = "basedpyright", specifier = "==1.40.2" }]
+types = [
+    { name = "basedpyright", specifier = "==1.40.2" },
+    { name = "pytest", specifier = "==9.2.0" },
+]
 
 [[package]]
 name = "nodejs-wheel-binaries"
