@@ -26,7 +26,7 @@ dynamic = ["version"]
 lint = ["ruff==0.17.4"]
 spell = ["codespell==2.4.3"]
 test = ["pytest==9.2.0"]
-coverage = ["coverage[toml]==7.17.2", { include-group = "test" }]
+coverage = ["coverage[toml]==7.17.3", { include-group = "test" }]
 types = ["basedpyright==1.40.2"]
 prek = ["prek==0.5.10"]
 format = [
