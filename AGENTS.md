@@ -19,8 +19,8 @@ dependencies or abstractions.
 - Tests use pytest. Coverage runs with branch measurement and enforces the configured
   minimum in `pyproject.toml`.
 - `tools/linters.sh`, `tools/formatters.sh`, and `tools/env.sh` provide the documented
-  local workflows. `prek.toml` defines hooks, including Ruff, basedpyright,
-  `sync-with-uv`, Vale, and Prettier.
+  local workflows. `.pre-commit-config.yaml` defines hooks, including Ruff,
+  basedpyright, `sync-with-uv`, Vale, and Prettier.
 - Vale is intentionally disabled for agent-facing instruction files through `.vale.ini`;
   keep other writing checks active.
 

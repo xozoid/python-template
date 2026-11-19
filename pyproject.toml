@@ -23,11 +23,11 @@ requires-python = ">=3.12"
 dynamic = ["version"]
 
 [dependency-groups]
-lint = ["ruff==0.17.4"]
+lint = ["ruff==0.17.5"]
 spell = ["codespell==2.4.3"]
 test = ["pytest==9.2.0"]
-coverage = ["coverage[toml]==7.17.2", { include-group = "test" }]
-types = ["basedpyright==1.40.2"]
+coverage = ["pytest-cov==7.1.0", { include-group = "test" }]
+types = ["basedpyright==1.40.2", { include-group = "test" }]
 prek = ["prek==0.5.10"]
 format = [
   "taplo==0.9.3",
@@ -63,7 +63,7 @@ source = ["new_project"]
 "https://github.com/DetachHead/basedpyright-prek-mirror" = "basedpyright"
 
 [tool.pytest.ini_options]
-addopts = ["--import-mode=importlib"]
+addopts = ["--durations=10", "--import-mode=importlib"]
 testpaths = ["tests"]
 
 [tool.ruff]

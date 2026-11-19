@@ -1,6 +1,7 @@
 # Local environments and secrets
 .venv/
 .env*
+.scratch/
 
 # Python bytecode and caches
 __pycache__/
