@@ -27,10 +27,10 @@ project name to `sample-tool`, rename the package directory to `sample_tool/`, a
 the wheel package to `sample_tool`. Update references in tests and workflow commands,
 including the build import smoke test in `.github/workflows/ci.yml`. Review the Python
 version matrix and tool versions in CI, Dependabot, `pyproject.toml`, `uv.lock`,
-`prek.toml`, and `package-lock.json` for your project's needs. Configure PyPI trusted
-publishing for the repository's `pypi` GitHub environment and the publishing workflow.
-After creating the new repository, replace `xozoid/python-template` in the badge
-definitions at the bottom with its owner and repository name.
+`.pre-commit-config.yaml`, and `package-lock.json` for your project's needs. Configure
+PyPI trusted publishing for the repository's `pypi` GitHub environment and the
+publishing workflow. After creating the new repository, replace `xozoid/python-template`
+in the badge definitions at the bottom with its owner and repository name.
 
 The project initialization skill records the full upstream template commit used during
 adoption in `.agents/skills/update-from-template/HISTORY.md`. Use the
@@ -60,8 +60,7 @@ Common commands:
 
 ```sh
 uv run pytest
-uv run coverage run -m pytest
-uv run coverage report
+uv run pytest --cov
 tools/linters.sh
 tools/formatters.sh
 uv run prek run --all-files

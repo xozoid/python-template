@@ -16,12 +16,12 @@ metadata, lockfiles, CI, and hooks.
   the resulting `uv.lock` changes.
 - Manage npm dependencies through npm commands and `package.json`. Regenerate and commit
   `package-lock.json`; use `npm ci` to install the locked set.
-- When changing hook revisions in `prek.toml` or relevant Python tool versions, run the
-  configured `sync-with-uv` hook (`uv run prek run sync-with-uv`) and review any
-  resulting lockfile updates.
+- When changing hook revisions in `.pre-commit-config.yaml` or relevant Python tool
+  versions, run the configured `sync-with-uv` hook (`uv run prek run sync-with-uv`) and
+  review any resulting lockfile updates.
 - Check that versions agree across CI workflow setup, dependency declarations,
-  `uv.lock`, `package-lock.json`, and `prek.toml` where applicable. Prefer the existing
-  dependency-management mechanisms over duplicating version information.
+  `uv.lock`, `package-lock.json`, and `.pre-commit-config.yaml` where applicable. Prefer
+  the existing dependency-management mechanisms over duplicating version information.
 - Run relevant checks after changes. See `CONTRIBUTING.md` for `uv sync --locked`,
   tests, `tools/linters.sh`, `tools/formatters.sh`, and `uv run prek run --all-files`.
 

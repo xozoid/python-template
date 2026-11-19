@@ -41,9 +41,8 @@ history intact and do not create a commit unless the user requests one.
       Skip this step for projects that do not publish to PyPI.
 - [ ] Verify the renamed package builds and imports from the built wheel.
 - [ ] Run `tools/formatters.sh` and review its changes. Then run `tools/linters.sh`,
-      `uv run pytest`, `uv run coverage run -m pytest`, and `uv run coverage report`,
-      following the commands in `CONTRIBUTING.md`. Fix any failures and rerun the
-      affected checks until all pass.
+      `uv run pytest` and `uv run pytest --cov`, following the commands in
+      `CONTRIBUTING.md`. Fix any failures and rerun the affected checks until all pass.
 
 After adoption is complete, replace the placeholder `Template-Revision` in `HISTORY.md`
 with the full upstream SHA resolved at the start. Do not edit the update skill's

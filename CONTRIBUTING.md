@@ -38,8 +38,7 @@ Run tests and coverage from the repository root:
 
 ```sh
 uv run pytest
-uv run coverage run -m pytest
-uv run coverage report
+uv run pytest --cov
 ```
 
 The coverage report enforces the configured 85% minimum. `tools/linters.sh` runs Ruff,
@@ -59,9 +58,10 @@ Dependabot's weekly uv updates cover exact-pinned development dependencies. Its
 resolves and records the update in `uv.lock`. CI runs `sync-with-uv` on every pull
 request, including Dependabot pull requests. It installs the `prek` group, runs the
 hook, and fails if the hook would modify tracked files. If an update changes a tool
-revision represented in `prek.toml`, run `uv run prek run --all-files sync-with-uv` and
-commit the generated change with the lockfile update. Dependabot doesn't provide an
-arbitrary post-update script in `dependabot.yml`; its
+revision represented in `.pre-commit-config.yaml`, run
+`uv run prek run --all-files sync-with-uv` and commit the generated change with the
+lockfile update. Dependabot doesn't provide an arbitrary post-update script in
+`dependabot.yml`; its
 [options reference](https://docs.github.com/en/code-security/reference/supply-chain-security/dependabot-options-reference)
 documents the supported update behavior.
 
@@ -87,9 +87,9 @@ changes; the skill instructions remain unchanged.
 Open a pull request against `main`. CI keeps checks in separate jobs: pytest on Python
 3.12 through 3.15, pytest against the lowest compatible runtime dependencies on Python
 3.12, Ruff, `basedpyright`, formatting (Ruff, Prettier, `Taplo`, `yamlfmt`), spelling,
-Vale, coverage, and build/import validation. Run the relevant local commands and ensure
-CI passes. Update tests and documentation when behavior or contributor instructions
-change.
+Vale, coverage, and wheel installation and import validation on each supported Python
+version. Run the relevant local commands and ensure CI passes. Update tests and
+documentation when behavior or contributor instructions change.
 
 ## Releases
 
