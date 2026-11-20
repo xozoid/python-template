@@ -1,6 +1,6 @@
 [build-system]
 build-backend = "hatchling.build"
-requires = ["hatchling>=1.33.0", "hatch-vcs>=0.5"]
+requires = ["hatch-vcs>=0.5", "hatchling>=1.33.0"]
 
 [project]
 classifiers = [
@@ -14,26 +14,16 @@ classifiers = [
 ]
 dependencies = []
 description = "A Python project."
+dynamic = ["version"]
 keywords = ["python"]
 license = "MIT"
 license-files = ["LICENSE"]
 name = "new-project"
 readme = "README.md"
 requires-python = ">=3.12"
-dynamic = ["version"]
 
 [dependency-groups]
-lint = ["ruff==0.17.5"]
-spell = ["codespell==2.4.3"]
-test = ["pytest==9.2.0"]
 coverage = ["pytest-cov==7.1.0", { include-group = "test" }]
-types = ["basedpyright==1.40.2", { include-group = "test" }]
-prek = ["prek==0.5.10"]
-format = [
-  "taplo==0.9.3",
-  { include-group = "lint" },
-  { include-group = "prek" },
-]
 dev = [
   "build==1.6.1",
   { include-group = "coverage" },
@@ -42,6 +32,16 @@ dev = [
   { include-group = "spell" },
   { include-group = "types" },
 ]
+format = [
+  "taplo==0.9.3",
+  { include-group = "lint" },
+  { include-group = "prek" },
+]
+lint = ["ruff==0.17.5"]
+prek = ["prek==0.5.10"]
+spell = ["codespell==2.4.3"]
+test = ["pytest==9.2.0"]
+types = ["basedpyright==1.40.2", { include-group = "test" }]
 
 [tool.basedpyright]
 include = ["new_project", "tests"]
@@ -51,7 +51,7 @@ venv = ".venv"
 venvPath = "."
 
 [tool.coverage.report]
-fail_under = 85
+fail_under = 100
 precision = 2
 show_missing = true
 
@@ -74,7 +74,6 @@ target-version = "py312"
 ignore = [
   "incorrect-blank-line-before-class",
   "missing-copyright-notice",
-  "missing-trailing-comma",            # ruff format adds trailing commas
   "undocumented-public-package",
 ]
 preview = true
@@ -82,6 +81,9 @@ select = ["ALL"]
 
 [tool.ruff.lint.pydocstyle]
 convention = "google"
+
+[tool.ruff.lint.isort]
+required-imports = ["from __future__ import annotations"]
 
 [tool.ruff.lint.per-file-ignores]
 "!**/conftest.py" = ["pytest-fixture-autouse"]
@@ -106,8 +108,11 @@ convention = "google"
 ]
 
 [tool.hatch.version]
-source = "vcs"
 fallback-version = "0.1.0"
+source = "vcs"
+
+[tool.hatch.build.hooks.vcs]
+version-file = "new_project/_version.py"
 
 [tool.hatch.build.targets.wheel]
 packages = ["new_project"]
