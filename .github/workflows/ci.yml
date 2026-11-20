@@ -88,7 +88,7 @@ jobs:
       - run: uv run --no-sync ruff format --check .
       - run: npm exec --no -- prettier --check .
       - run: uv run --no-sync taplo fmt --check '*.toml'
-      - run: uv run --no-sync prek run yamlfmt --all-files
+      - run: uv run --no-sync prek run file-contents-sorter --all-files
   sync-with-uv:
     runs-on: ubuntu-latest
     steps:
@@ -141,4 +141,4 @@ jobs:
         run: |
           tmpdir=$(mktemp -d)
           cd "$tmpdir"
-          /tmp/wheel-test/bin/python -c "import new_project"
+          /tmp/wheel-test/bin/python -c "from importlib.metadata import version; import new_project; assert new_project.__version__ == version('new-project')"

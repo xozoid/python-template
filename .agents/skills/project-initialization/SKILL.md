@@ -28,8 +28,9 @@ history intact and do not create a commit unless the user requests one.
 - [ ] Rename the distribution and import package consistently. Rename `new_project/` and
       update imports rather than applying blind text substitutions.
 - [ ] Update project metadata and package paths in `pyproject.toml`, including the
-      Hatchling wheel package, basedpyright include paths, and coverage source. Review
-      the README, tests, and GitHub workflow references to the old package name.
+      Hatchling wheel package and VCS version-file path, basedpyright include paths, and
+      coverage source. Review the README, tests, and GitHub workflow references to the
+      old package name.
 - [ ] Update CI and release workflow references for the package, Python versions, and
       chosen publishing target. Keep package metadata, lockfiles, CI, and hooks aligned.
 - [ ] Update npm package metadata in `package.json` and regenerate `package-lock.json`

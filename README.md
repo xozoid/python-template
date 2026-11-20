@@ -7,8 +7,8 @@
 This repository is a reusable template for Python packages. It includes Hatchling with
 `hatch-vcs` for builds and Git-derived versions, pytest and coverage for tests, Ruff for
 linting and formatting, `basedpyright` for type checking, and `prek` hooks for local
-checks. Prettier, `Taplo`, `yamlfmt`, Vale, and `codespell` cover formatting and writing
-checks. GitHub Actions runs these checks and publishes tagged releases to PyPI.
+checks. Prettier, `Taplo`, Vale, and `codespell` cover formatting and writing checks.
+GitHub Actions runs these checks and publishes tagged releases to PyPI.
 
 ## Create a project
 
@@ -17,10 +17,12 @@ organization, and clone that repository.
 
 Replace `new-project` with your distribution name and `new_project` with its Python
 import package name. Rename the `new_project/` directory, update the wheel package in
-`[tool.hatch.build.targets.wheel]`, and adjust coverage and `basedpyright` paths in
-`pyproject.toml`. Update the project metadata there, including description, keywords,
-classifiers, Python support, and license as needed. Also change the npm package name in
-`package.json` and the PyPI project URL in `.github/workflows/publish.yml`.
+`[tool.hatch.build.targets.wheel]`, and change `version-file` in
+`[tool.hatch.build.hooks.vcs]` to the renamed package's `_version.py` path. Adjust
+coverage and `basedpyright` paths in `pyproject.toml`. Update the project metadata
+there, including description, keywords, classifiers, Python support, and license as
+needed. Also change the npm package name in `package.json` and the PyPI project URL in
+`.github/workflows/publish.yml`.
 
 For example, for distribution `sample-tool` and import package `sample_tool`, change the
 project name to `sample-tool`, rename the package directory to `sample_tool/`, and set

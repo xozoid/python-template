@@ -23,7 +23,7 @@ run_formatter() {
 run_formatter "Ruff format" uv run ruff format .
 run_formatter "Prettier" npm exec --no -- prettier --write .
 run_formatter "Taplo" uv run taplo fmt '*.toml'
-run_formatter "YAML" uv run prek run yamlfmt --all-files
+run_formatter "Text file sorting" uv run prek run file-contents-sorter --all-files
 
 if [ -n "$failed_formatters" ]; then
   printf '\nFailed formatters: %s\n' "$failed_formatters"

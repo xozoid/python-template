@@ -26,8 +26,8 @@ Use `uv add --group <group> package-name` for another dependency group, or edit 
 project metadata and run `uv lock` when needed. Set the exact pin to the version
 selected by the lockfile. Leave runtime dependencies in `[project.dependencies]`
 unpinned. The `dev` group includes all groups for the complete local environment. The
-`format` group includes `prek` for its `yamlfmt` hook; CI selects only the groups each
-independent job needs. Update npm development dependencies with
+`format` group includes `prek` for its text file sorting hook; CI selects only the
+groups each independent job needs. Update npm development dependencies with
 `npm install --save-dev package-name` and commit both `package.json` and
 `package-lock.json`. Dependabot also checks uv, npm, and GitHub Actions dependencies
 weekly.
@@ -41,17 +41,17 @@ uv run pytest
 uv run pytest --cov
 ```
 
-The coverage report enforces the configured 85% minimum. `tools/linters.sh` runs Ruff,
+The coverage report enforces the configured 100% minimum. `tools/linters.sh` runs Ruff,
 `basedpyright`, `codespell`, and Vale (errors only). `tools/formatters.sh` runs Ruff
-format, Prettier, `Taplo`, and `yamlfmt`. These scripts apply formatting changes; review
-the resulting diff.
+format, Prettier, `Taplo`, and sorts `.txt` files. These scripts apply formatting
+changes; review the resulting diff.
 
 `uv run prek run --all-files` runs the configured hooks against all files. The hooks
-include Ruff lint and format, `codespell`, `Taplo`, `basedpyright`, `yamlfmt`, standard
-file checks, Vale, and Prettier. `tools/env.sh` installs the Git hooks so `prek` runs on
-commits. The `sync-with-uv` hook keeps hook revisions aligned with Python packages in
-`uv.lock`; run it after changing hook revisions or relevant dependencies, then review
-and commit the lockfile changes.
+include Ruff lint and format, `codespell`, `Taplo`, `basedpyright`, `.txt` sorting,
+standard file checks, Vale, and Prettier. `tools/env.sh` installs the Git hooks so
+`prek` runs on commits. The `sync-with-uv` hook keeps hook revisions aligned with Python
+packages in `uv.lock`; run it after changing hook revisions or relevant dependencies,
+then review and commit the lockfile changes.
 
 Dependabot's weekly uv updates cover exact-pinned development dependencies. Its
 `increase` versioning strategy advances the manifest constraint, while the uv updater
@@ -86,9 +86,9 @@ changes; the skill instructions remain unchanged.
 
 Open a pull request against `main`. CI keeps checks in separate jobs: pytest on Python
 3.12 through 3.15, pytest against the lowest compatible runtime dependencies on Python
-3.12, Ruff, `basedpyright`, formatting (Ruff, Prettier, `Taplo`, `yamlfmt`), spelling,
-Vale, coverage, and wheel installation and import validation on each supported Python
-version. Run the relevant local commands and ensure CI passes. Update tests and
+3.12, Ruff, `basedpyright`, formatting (Ruff, Prettier, `Taplo`, text file sorting),
+spelling, Vale, coverage, and wheel installation and import validation on each supported
+Python version. Run the relevant local commands and ensure CI passes. Update tests and
 documentation when behavior or contributor instructions change.
 
 ## Releases
